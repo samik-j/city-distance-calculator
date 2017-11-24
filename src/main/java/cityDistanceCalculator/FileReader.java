@@ -7,7 +7,13 @@ import java.util.List;
 
 public class FileReader {
 
-    public List<City> readFile(String filePath) throws IOException {
+    private final String filePath;
+
+    public FileReader(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public List<City> readFile() throws IOException {
         List<City> cities = new ArrayList<>();
         String currentLine = "";
 
