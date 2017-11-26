@@ -1,0 +1,6 @@
+How to run a program
+1. Run command line
+2. Type "java -jar pathToTheProgram"
+3. Program will ask you to enter path to csv file containing information on cities
+4. Program will ask you to enter names of cities of which you want to calculate distance
+5. To continue calculating distances press enter, to quit type q and enter
