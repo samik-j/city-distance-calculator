@@ -1,36 +1,57 @@
 package cityDistanceCalculator;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class UserInterface {
 
-    private final CityResource resources;
+    private final CityResource cityResource;
     private static Scanner input = new Scanner(System.in);
 
-    public UserInterface(CityResource resources) {
-        this.resources = resources;
+    public UserInterface(CityResource cityResource) {
+        this.cityResource = cityResource;
     }
 
     public static void main(String[] args) {
         UserInterface userInterface = null;
-        String filePath = getFilePath();
+        boolean success = false;
 
-        try {
-            userInterface = new UserInterface(new CityResource(new FileReader(filePath)));
-        } catch (Exception e) {
-            System.out.println("Failed to load file");
-            return;
-        }
+        do {
+            try {
+                userInterface = new UserInterface(new CityResource(new FileReader(getFilePath())));
+                success = true;
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
+            } catch (IOException e) {
+                System.out.println("Failed to load file");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!success);
 
         userInterface.run();
     }
 
+
     private void run() {
+        String quit;
+
+        do {
+            getDistanceBetween();
+
+            System.out.println("continue or q to quit");
+            quit = input.nextLine();
+
+        } while (!quit.equals("q"));
+    }
+
+    private void getDistanceBetween() {
         String city1 = getCityName();
         String city2 = getCityName();
 
         try {
-            System.out.print("Distance: " + resources.getDistanceBetween(city1, city2) + "km");
+            System.out.println("Distance: " + cityResource.getDistanceBetween(city1, city2) + "km");
         } catch (CityNotFoundException e) {
             System.out.println(e.getMessage());
         }

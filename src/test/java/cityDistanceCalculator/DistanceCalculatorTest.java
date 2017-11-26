@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DistanceCalculatorTest {
 
     @Test
-    public void shouldCalculateDistance() {
+    public void shouldCalculateDistance() throws IncorrectInformationException {
         // given
         City city1 = new City("London", 51.507222, -0.1275);
         City city2 = new City("Warsaw", 52.233333, 21.016667);
@@ -18,4 +18,5 @@ class DistanceCalculatorTest {
         // then
         assertEquals(1453, result, 5);
     }
+
 }

@@ -8,7 +8,7 @@ public class CityResource {
     private List<City> cityList;
     private FileReader reader;
 
-    public CityResource(FileReader reader) throws IOException {
+    public CityResource(FileReader reader) throws IOException{
         this.reader = reader;
         this.cityList = this.reader.readFile();
     }

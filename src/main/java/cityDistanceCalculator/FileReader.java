@@ -19,9 +19,15 @@ public class FileReader {
 
         BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath));
 
-        while((currentLine = reader.readLine()) != null) {
+        while ((currentLine = reader.readLine()) != null) {
             String[] cityInfo = currentLine.split(";");
-            cities.add(new City(cityInfo[0], Double.parseDouble(cityInfo[1]), Double.parseDouble(cityInfo[2])));
+            try {
+                cities.add(new City(cityInfo[0], Double.parseDouble(cityInfo[1]), Double.parseDouble(cityInfo[2])));
+            } catch (IncorrectInformationException e) {
+                throw new IncorrectInformationException(cityInfo[0] + ": " + e.getMessage());
+            } catch (RuntimeException e) {
+                throw new RuntimeException("Wrong file format");
+            }
         }
 
         reader.close();
