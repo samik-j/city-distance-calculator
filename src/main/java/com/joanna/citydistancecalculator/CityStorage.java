@@ -1,4 +1,4 @@
-package cityDistanceCalculator;
+package com.joanna.citydistancecalculator;
 
 import java.util.Map;
 
