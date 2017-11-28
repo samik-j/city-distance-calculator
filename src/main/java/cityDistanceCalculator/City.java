@@ -7,9 +7,17 @@ public class City {
     private final double longitude;
 
     public City(String name, double latitude, double longitude) {
-        this.name = name;
+        this.name = assertName(name);
         this.latitude = assertLat(latitude);
         this.longitude = assertLon(longitude);
+    }
+
+    private String assertName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IncorrectInformationException("Empty name for city");
+        } else {
+            return name;
+        }
     }
 
     private double assertLat(double latitude) {

@@ -2,8 +2,8 @@ package cityDistanceCalculator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FileReader {
 
@@ -13,24 +13,25 @@ public class FileReader {
         this.filePath = filePath;
     }
 
-    public List<City> readFile() throws IOException {
-        List<City> cities = new ArrayList<>();
+    public Map<String, City> readFile() throws IOException {
+        Map<String, City> cities = new HashMap<>();
         String currentLine = "";
+        int line = 0;
 
-        BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath));
+        try (BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath))) {
 
-        while ((currentLine = reader.readLine()) != null) {
-            String[] cityInfo = currentLine.split(";");
-            try {
-                cities.add(new City(cityInfo[0], Double.parseDouble(cityInfo[1]), Double.parseDouble(cityInfo[2])));
-            } catch (IncorrectInformationException e) {
-                throw new IncorrectInformationException(cityInfo[0] + ": " + e.getMessage());
-            } catch (RuntimeException e) {
-                throw new RuntimeException("Wrong file format");
+            while ((currentLine = reader.readLine()) != null) {
+                String[] cityInfo = currentLine.split(";");
+                line++;
+                try {
+                    cities.put(cityInfo[0], new City(cityInfo[0], Double.parseDouble(cityInfo[1]), Double.parseDouble(cityInfo[2])));
+                } catch (IncorrectInformationException e) {
+                    throw new IncorrectInformationException("Line " + line + ": " + e.getMessage());
+                } catch (RuntimeException e) {
+                    throw new RuntimeException("Line " + line + ": Wrong information format");
+                }
             }
         }
-
-        reader.close();
 
         return cities;
     }

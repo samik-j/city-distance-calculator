@@ -9,20 +9,40 @@ class CityTest {
 
     @Test
     public void shouldCreateCity() {
+        // given
+        double latitude = 51.507222;
+        double longitude = -0.1275;
+
         // when
-        City city = new City("London", 51.507222, -0.1275);
+        City city = new City("London", latitude, longitude);
 
         // then
         assertEquals("London", city.getName());
-        assertEquals(51.507222, city.getLatitude());
-        assertEquals(-0.1275, city.getLongitude());
+        assertEquals(latitude, city.getLatitude());
+        assertEquals(longitude, city.getLongitude());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenNameIsEmpty() {
+        assertThrows(IncorrectInformationException.class, () ->
+        {
+            new City("", 551.507222, -0.1275);
+        });
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenNameIsNull() {
+        assertThrows(IncorrectInformationException.class, () ->
+        {
+            new City(null, 551.507222, -0.1275);
+        });
     }
 
     @Test
     public void shouldThrowExceptionWhenLatitudeIsOutOfBounds() {
         assertThrows(IncorrectInformationException.class, () ->
         {
-            City city = new City("London", 551.507222, -0.1275);
+            new City("London", 551.507222, -0.1275);
         });
     }
 
@@ -30,7 +50,7 @@ class CityTest {
     public void shouldThrowExceptionWhenLongitudeIsOutOfBounds() {
         assertThrows(IncorrectInformationException.class, () ->
         {
-            City city = new City("London", 51.507222, 200.1275);
+            new City("London", 51.507222, 200.1275);
         });
     }
 }

@@ -4,7 +4,7 @@ import static java.lang.Math.*;
 
 public class DistanceCalculator {
 
-    private static final double R = 6378;
+    private static final double R = 6371;
 
     public static double calculateDistance(City city1, City city2) {
         double lon1 = degToRad(city1.getLongitude());

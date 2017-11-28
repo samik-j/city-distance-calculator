@@ -6,20 +6,34 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    private final CityResource cityResource;
+    private final CityStorage cityStorage;
     private static Scanner input = new Scanner(System.in);
 
-    public UserInterface(CityResource cityResource) {
-        this.cityResource = cityResource;
+    private UserInterface(CityStorage cityStorage) throws IOException {
+        this.cityStorage = cityStorage;
     }
 
     public static void main(String[] args) {
+        UserInterface userInterface = getUserInterface();
+
+        String quit;
+
+        do {
+            userInterface.getDistance();
+
+            System.out.println("continue or q to quit");
+            quit = input.nextLine();
+
+        } while (!quit.equals("q"));
+    }
+
+    private static UserInterface getUserInterface() {
         UserInterface userInterface = null;
         boolean success = false;
 
         do {
             try {
-                userInterface = new UserInterface(new CityResource(new FileReader(getFilePath())));
+                userInterface = new UserInterface(new CityStorage(new FileReader(getFilePath()).readFile()));
                 success = true;
             } catch (FileNotFoundException e) {
                 System.out.println("File not found");
@@ -30,28 +44,15 @@ public class UserInterface {
             }
         } while (!success);
 
-        userInterface.run();
+        return userInterface;
     }
 
-
-    private void run() {
-        String quit;
-
-        do {
-            getDistanceBetween();
-
-            System.out.println("continue or q to quit");
-            quit = input.nextLine();
-
-        } while (!quit.equals("q"));
-    }
-
-    private void getDistanceBetween() {
+    private void getDistance() {
         String city1 = getCityName();
         String city2 = getCityName();
 
         try {
-            System.out.println("Distance: " + cityResource.getDistanceBetween(city1, city2) + "km");
+            System.out.println("Distance: " + cityStorage.getDistanceBetween(city1, city2) + "km");
         } catch (CityNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -68,5 +69,4 @@ public class UserInterface {
 
         return input.nextLine();
     }
-
 }
