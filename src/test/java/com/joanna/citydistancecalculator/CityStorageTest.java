@@ -25,7 +25,7 @@ class CityStorageTest {
     @Test
     public void shouldCalculateDistance() throws IOException, CityNotFoundException {
         // when
-        double result = cityStorage.getDistanceBetween("London", "Warsaw");
+        double result = cityStorage.calculateDistanceBetween("London", "Warsaw");
 
         // then
         assertEquals(1453, result, 5);
@@ -35,7 +35,7 @@ class CityStorageTest {
     public void shouldThrowCityNotFoundException() throws CityNotFoundException {
         assertThrows(CityNotFoundException.class, () ->
         {
-            cityStorage.getDistanceBetween("London", "Wroclaw");
+            cityStorage.calculateDistanceBetween("London", "Wroclaw");
         });
     }
 }

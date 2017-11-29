@@ -10,11 +10,11 @@ public class CityStorage {
         this.cities = cities;
     }
 
-    public double getDistanceBetween(String name1, String name2) throws CityNotFoundException {
-        return DistanceCalculator.calculateDistance(getCityByName(name1), getCityByName(name2));
+    public double calculateDistanceBetween(String name1, String name2) throws CityNotFoundException {
+        return DistanceCalculator.calculateDistance(getCity(name1), getCity(name2));
     }
 
-    private City getCityByName(String name) throws CityNotFoundException {
+    private City getCity(String name) throws CityNotFoundException {
         if (cities.containsKey(name)) {
             return cities.get(name);
         } else {

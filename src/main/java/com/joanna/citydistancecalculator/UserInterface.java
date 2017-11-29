@@ -7,19 +7,19 @@ import java.util.Scanner;
 public class UserInterface {
 
     private final CityStorage cityStorage;
-    private static Scanner input = new Scanner(System.in);
+    private final static Scanner input = new Scanner(System.in);
 
     private UserInterface(CityStorage cityStorage) throws IOException {
         this.cityStorage = cityStorage;
     }
 
     public static void main(String[] args) {
-        UserInterface userInterface = getUserInterface();
+        UserInterface userInterface = createUserInterface();
 
         String quit;
 
         do {
-            userInterface.getDistance();
+            userInterface.calculateDistance(getCityName(), getCityName());
 
             System.out.println("continue or q to quit");
             quit = input.nextLine();
@@ -27,7 +27,7 @@ public class UserInterface {
         } while (!quit.equals("q"));
     }
 
-    private static UserInterface getUserInterface() {
+    private static UserInterface createUserInterface() {
         UserInterface userInterface = null;
         boolean success = false;
 
@@ -47,12 +47,10 @@ public class UserInterface {
         return userInterface;
     }
 
-    private void getDistance() {
-        String city1 = getCityName();
-        String city2 = getCityName();
+    private void calculateDistance(String city1, String city2) {
 
         try {
-            System.out.println("Distance: " + cityStorage.getDistanceBetween(city1, city2) + "km");
+            System.out.println("Distance: " + cityStorage.calculateDistanceBetween(city1, city2) + "km");
         } catch (CityNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -64,7 +62,7 @@ public class UserInterface {
         return input.nextLine();
     }
 
-    private String getCityName() {
+    private static String getCityName() {
         System.out.println("Enter city name:");
 
         return input.nextLine();
