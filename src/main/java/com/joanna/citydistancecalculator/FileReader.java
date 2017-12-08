@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FileReader {
+public class FileReader implements CityStorageReader{
 
     private final String filePath;
 
@@ -13,7 +13,7 @@ public class FileReader {
         this.filePath = filePath;
     }
 
-    public Map<String, City> readFile() throws IOException {
+    public Map<String, City> read() throws IOException {
         Map<String, City> cities = new HashMap<>();
         String currentLine = "";
         int line = 0;

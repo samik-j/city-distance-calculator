@@ -8,18 +8,26 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class CityStorageTest {
 
     private CityStorage cityStorage = createCityStorage();
 
-    private CityStorage createCityStorage() {
+    CityStorageTest() throws Exception {
+    }
+
+    private CityStorage createCityStorage() throws Exception {
         Map<String, City> cities = new HashMap<>();
 
         cities.put("London", new City("London", 51.507222, -0.1275));
         cities.put("Warsaw", new City("Warsaw", 52.233333, 21.016667));
 
-        return new CityStorage(cities);
+        CityStorageReader reader = mock(FileReader.class);
+        when(reader.read()).thenReturn(cities);
+
+        return new CityStorage(reader);
     }
 
     @Test

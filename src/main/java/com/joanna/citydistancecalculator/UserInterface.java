@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    private final CityStorage cityStorage;
     private final static Scanner input = new Scanner(System.in);
+    private final CityStorage cityStorage;
 
     private UserInterface(CityStorage cityStorage) throws IOException {
         this.cityStorage = cityStorage;
@@ -33,7 +33,7 @@ public class UserInterface {
 
         do {
             try {
-                userInterface = new UserInterface(new CityStorage(new FileReader(getFilePath()).readFile()));
+                userInterface = new UserInterface(new CityStorage(new FileReader(getFilePath())));
                 success = true;
             } catch (FileNotFoundException e) {
                 System.out.println("File not found");
@@ -47,15 +47,6 @@ public class UserInterface {
         return userInterface;
     }
 
-    private void calculateDistance(String city1, String city2) {
-
-        try {
-            System.out.println("Distance: " + cityStorage.calculateDistanceBetween(city1, city2) + "km");
-        } catch (CityNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     private static String getFilePath() {
         System.out.println("Enter file path:");
 
@@ -66,5 +57,14 @@ public class UserInterface {
         System.out.println("Enter city name:");
 
         return input.nextLine();
+    }
+
+    private void calculateDistance(String city1, String city2) {
+
+        try {
+            System.out.println("Distance: " + cityStorage.calculateDistanceBetween(city1, city2) + "km");
+        } catch (CityNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

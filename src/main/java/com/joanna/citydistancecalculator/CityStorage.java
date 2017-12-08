@@ -4,10 +4,12 @@ import java.util.Map;
 
 public class CityStorage {
 
+    private CityStorageReader reader;
     private Map<String, City> cities;
 
-    public CityStorage(Map<String, City> cities) {
-        this.cities = cities;
+    public CityStorage(CityStorageReader reader) throws Exception {
+        this.reader = reader;
+        this.cities = reader.read();
     }
 
     public double calculateDistanceBetween(String name1, String name2) throws CityNotFoundException {
