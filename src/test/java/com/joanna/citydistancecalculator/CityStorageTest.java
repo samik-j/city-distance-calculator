@@ -19,7 +19,10 @@ class CityStorageTest {
         cities.put("London", new City("London", 51.507222, -0.1275));
         cities.put("Warsaw", new City("Warsaw", 52.233333, 21.016667));
 
-        return new CityStorage(cities);
+        CityStorage cityStorage = new CityStorage();
+        cityStorage.addCities(cities);
+
+        return cityStorage;
     }
 
     @Test

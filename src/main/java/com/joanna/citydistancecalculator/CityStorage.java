@@ -1,13 +1,17 @@
 package com.joanna.citydistancecalculator;
 
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class CityStorage {
 
     private Map<String, City> cities;
 
-    public CityStorage(Map<String, City> cities) {
-        this.cities = cities;
+    public CityStorage() {
+        this.cities = new HashMap<>();
     }
 
     public double calculateDistanceBetween(String name1, String name2) throws CityNotFoundException {
@@ -20,5 +24,9 @@ public class CityStorage {
         } else {
             throw new CityNotFoundException("City not found");
         }
+    }
+
+    public void addCities(Map<String, City> cities) {
+        this.cities.putAll(cities);
     }
 }
