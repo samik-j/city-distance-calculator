@@ -1,6 +1,9 @@
 # City Distance Calculator
 Program reads a cvs file with cities' coordinates and calculates distance between two given cities
 
+## Prerequisites
+* Maven
+
 ## How to run
 ### Create a jar file
 1. Run Command Prompt
