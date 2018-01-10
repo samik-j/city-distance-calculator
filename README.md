@@ -3,6 +3,7 @@ Program reads a cvs file with cities' coordinates and calculates distance betwee
 
 ## Prerequisites
 * Maven
+* JDK
 
 ## How to run
 ### Create a jar file
